@@ -188,13 +188,14 @@ get_firehoseData <- function(downloadData=TRUE,
     
     # New code to handle dates - Marcos
     gdacURLnew <- paste0(gdacURL_orig, dataType, "__latest/data/", TCGA_acronym_uppercase, "/")
-    urlDataNew <- RCurl::getURL(gdacURLnew)
+    urlDataNew <- read_html(gdacURLnew)
     urlDataNew <- limma::strsplit2(urlDataNew, "href=\\\"") #regular expressions: need \ to have R recognize any " or \ that's actually in our text
     getlatestdate <- urlDataNew[grep("^201[0-9][01][0-9][0123][0-9]", urlDataNew)]
     getlatestdate <- substring(getlatestdate, 1, 8)
     gdacURLnew <- paste0(gdacURLnew, getlatestdate, "/")
-    urlData <- RCurl::getURL(gdacURLnew)
+    urlData <- read_html(gdacURLnew)
     urlData <- limma::strsplit2(urlData, "href=\\\"") #regular expressions: need \ to have R recognize any " or \ that's actually in our text
+    urlData <- gsub("\".*$","",urlData)
     lastDateCompress <- lastDate <- getlatestdate # for compatibility with the rest of old code
     gdacURL <- gdacURLnew # for compatibility with the rest of old code
     # end New code
