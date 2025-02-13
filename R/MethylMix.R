@@ -111,9 +111,9 @@ MethylMix <- function(METcancer,
     if (missing(METcancer)) stop("Need to provide METcancer matrix")
     if (missing(GEcancer)) stop("Need to provide GEcancer matrix")
     stopifnot(
-        class(METcancer) == "matrix",
-        class(GEcancer) == "matrix",
-        class(METnormal) %in% c("matrix", "NULL"),
+        class(METcancer)[1] == "matrix",
+        class(GEcancer)[1] == "matrix",
+        class(METnormal)[1] %in% c("matrix", "NULL"),
         class(listOfGenes) %in% c("character", "NULL"),
         class(filter) == "logical",
         class(NoNormalMode) == "logical",
