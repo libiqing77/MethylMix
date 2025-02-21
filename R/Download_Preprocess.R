@@ -835,6 +835,15 @@ TCGA_GENERIC_CheckBatchEffect <-function(GEN_Data, BatchData) {
     
     # PCA analysis
     # alternatively use fast.prcomp from package gmodels, but tests do not show this is faster
+        #remove NA
+    GEN_Data <- na.omit(GEN_Data)
+
+    # Remove rows with infinite values
+    GEN_Data <- GEN_Data[!apply(is.infinite(GEN_Data), 1, any),]
+
+    # Remove columns with infinite values
+    GEN_Data <- GEN_Data[, !apply(is.infinite(GEN_Data), 2, any)]
+    
     PCAanalysis=prcomp(t(GEN_Data))
     PCdata=PCAanalysis$x
     #plot(PCdata[,1]~BatchDataSelected[,3])
