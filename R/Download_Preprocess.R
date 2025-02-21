@@ -361,11 +361,13 @@ Preprocess_DNAmethylation <- function(CancerSite, METdirectories, MissingValueTh
     if (!is.na(METdirectories$METdirectory27k)) {
         cat('\tLoading data for 27k.\n')
         ProcessedData27k=Preprocess_CancerSite_Methylation27k(CancerSite,METdirectories$METdirectory27k, MissingValueThreshold)
+        saveRDS(file="ProcessedData27k.rds",ProcessedData27k)
     }
     
     if (!is.na(METdirectories$METdirectory450k)) {
         cat('\tLoading data for 450k.\n')
         ProcessedData450k=Preprocess_CancerSite_Methylation450k(CancerSite,METdirectories$METdirectory450k, MissingValueThreshold)
+        saveRDS(file="ProcessedData450k",ProcessedData450k)
     }
     
     # check if we want to combine 27k and 450k
